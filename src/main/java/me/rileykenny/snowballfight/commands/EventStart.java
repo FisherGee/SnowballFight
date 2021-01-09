@@ -1,5 +1,9 @@
 package me.rileykenny.snowballfight.commands;
 
+import me.rileykenny.snowballfight.Core;
+import me.rileykenny.snowballfight.event.Event;
+import me.rileykenny.snowballfight.event.EventQueue;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,7 +20,8 @@ public class EventStart implements CommandExecutor {
         if (!label.equals("event")) return false;
 
         if (args[0].equals("start")) {
-
+            new EventQueue(60).start();
+            Event.getInstance().start();
         }
 
         return true;
