@@ -26,7 +26,7 @@ public class PlayerInventory implements Listener {
         Player player = event.getEntity() instanceof Player ? (Player) event.getEntity() : null;
         if (player == null) return;
 
-        if (snowBallEvent.getState().equals(Event.State.SESSION)) {
+        if (snowBallEvent.getState() == Event.State.SESSION) {
             if (snowBallEvent.isPlayerEvent(player)) {
                 if (event instanceof Cancellable) {
                     Cancellable cancellableEvent = (Cancellable) event;
