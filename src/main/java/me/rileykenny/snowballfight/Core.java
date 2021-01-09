@@ -1,6 +1,9 @@
 package me.rileykenny.snowballfight;
 
 import me.rileykenny.snowballfight.event.EventManager;
+import me.rileykenny.snowballfight.event.listeners.SnowballHitListener;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Core extends JavaPlugin {
@@ -12,6 +15,13 @@ public class Core extends JavaPlugin {
     public void onEnable() {
         eventManager = new EventManager();
         instance = this;
+
+        registerListeners();
+    }
+
+    public void registerListeners(){
+        PluginManager pluginManager = Bukkit.getPluginManager();
+        pluginManager.registerEvents(new SnowballHitListener(), this);
     }
 
     public EventManager getEventManager() {
