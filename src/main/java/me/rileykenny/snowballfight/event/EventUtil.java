@@ -2,18 +2,13 @@ package me.rileykenny.snowballfight.event;
 
 import java.util.Collection;
 
-public class EventManager {
+public class EventUtil {
 
     public enum Team {
         A, B
     }
 
-    public EventManager() {
-
-    }
-
-    //split into two teams
-    public void setTeams(Collection<EventPlayer> eventPlayers) {
+    public static void setTeams(Collection<EventPlayer> eventPlayers) {
         EventPlayer[] eventPlayerList = (EventPlayer[]) eventPlayers.toArray();
         for(int i = 0; i < eventPlayerList.length; i++){
 
@@ -24,4 +19,6 @@ public class EventManager {
             }
         }
     }
+
+
 }

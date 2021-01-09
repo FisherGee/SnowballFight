@@ -1,7 +1,10 @@
 package me.rileykenny.snowballfight.event;
 
+import me.rileykenny.snowballfight.Core;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
@@ -11,7 +14,7 @@ public class Event {
     private static Event event;
     private HashSet<EventPlayer> players;
     private HashSet<EventPlayer> playersEliminated;
-    private Location spawn;
+    private Arena arena;
     public State state;
 
     //state of the event
@@ -21,16 +24,24 @@ public class Event {
         SESSION
     }
 
-    //singleton to ensure that there is only
-    //one event playing at a time.
-    private Event() {
-        players = new HashSet<>();
-        state = State.IDLE;
+    // Singleton to ensure that there is only
+    // One event playing at a time.
+    private Event(Arena arena) {
+        this.players = new HashSet<>();
+        this.state = State.IDLE;
+        this.arena = arena;
     }
 
     public static Event getInstance() {
-        if(event == null){
-            event = new Event();
+        if (event == null) {
+
+            World world = Core.getInstance().getServer().getWorld("world");
+
+            event = new Event(new Arena(
+                        new Location(world, 0.0, 0.0, 0.0),
+                        new Location(world, -10.0, 0.0, -10.0),
+                        new Location(world, 10.0, 0.0, 10.0)
+                ));
         }
 
         return event;
@@ -39,13 +50,16 @@ public class Event {
     //start the event.
     public void start() {
         state = State.SESSION;
+        EventUtil.setTeams(players);
 
-        for(EventPlayer player : players){
-            player.getPlayer().teleport(spawn);
+        for (EventPlayer player : players) {
+            player.getPlayer().teleport(arena.getSpawnLocation());
             player.getPlayer().sendMessage(ChatColor.GREEN + "Teleported to the event!");
             addEventPlayer(player);
             player.getPlayer().getInventory().clear();
         }
+
+
     }
 
     public void addEventPlayer(EventPlayer eventPlayer){

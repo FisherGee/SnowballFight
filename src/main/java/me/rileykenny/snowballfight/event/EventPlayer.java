@@ -1,12 +1,11 @@
 package me.rileykenny.snowballfight.event;
 
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.PlayerInventory;
 
 public class EventPlayer {
 
-    private EventManager.Team team;
+    private EventUtil.Team team;
     private Player player;
     private int points;
     private PlayerInventory oldInventory;
@@ -17,11 +16,11 @@ public class EventPlayer {
         this.oldInventory = player.getInventory();
     }
 
-    public void setTeam(EventManager.Team team) {
+    public void setTeam(EventUtil.Team team) {
         this.team = team;
     }
 
-    public EventManager.Team getTeam() {
+    public EventUtil.Team getTeam() {
         return team;
     }
 
