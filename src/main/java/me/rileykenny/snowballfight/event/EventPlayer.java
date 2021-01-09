@@ -28,10 +28,6 @@ public class EventPlayer {
         return player;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
     public int getPoints() {
         return points;
     }
