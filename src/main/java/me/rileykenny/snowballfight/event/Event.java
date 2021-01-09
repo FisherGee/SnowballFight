@@ -41,6 +41,8 @@ public class Event {
         for(EventPlayer player : players){
             player.getPlayer().teleport(spawn);
             player.getPlayer().sendMessage(ChatColor.GREEN + "Teleported to the event!");
+            addEventPlayer(player);
+            player.getPlayer().getInventory().clear();
         }
     }
 
