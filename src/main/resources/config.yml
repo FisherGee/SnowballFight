@@ -1,0 +1,25 @@
+#######################################
+#            Snowball Fight           #
+#           By Riley + Kenny          #
+#######################################
+
+arenas:
+  'one':
+    spawn:
+      world: 'world'
+      x: 3.0
+      y: 5.0
+      z: 60.0
+      yaw: 100.0
+      pitch: 90.0
+    event area:
+      world: 'events'
+      pos1:
+        x: 3.0
+        y: 5.0
+        z: 60.0
+      pos2:
+        x: 3.0
+        y: 5.0
+        z: 60.0
+
