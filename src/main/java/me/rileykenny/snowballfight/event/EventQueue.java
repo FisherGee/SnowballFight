@@ -14,7 +14,7 @@ public class EventQueue {
     }
 
     public void start() {
-        Bukkit.getScheduler().runTaskTimer(Core.getInstance(), () -> {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(Core.getInstance(), () -> {
             while (seconds != 0) {
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     player.sendMessage(ChatColor.YELLOW + Integer.toString(seconds) + " remaining!");
