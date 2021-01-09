@@ -2,6 +2,7 @@ package me.rileykenny.snowballfight.event;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 import java.util.HashSet;
 
@@ -10,6 +11,7 @@ public class Event {
     private static Event event;
 
     private HashSet<EventPlayer> players;
+    private HashSet<EventPlayer> playersEliminated;
 
     private Location spawn;
 
@@ -51,7 +53,32 @@ public class Event {
         players.add(eventPlayer);
     }
 
+    public void addEliminatedEventPlayer(EventPlayer eventPlayer){
+        playersEliminated.add(eventPlayer);
+    }
 
+    public State getState(){
+        return state;
+    }
+
+    public boolean isPlayerEvent(Player player){
+        for(EventPlayer eventPlayer : players){
+            if(eventPlayer.getPlayer() == player){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public EventPlayer getEventPlayer(Player player){
+        for(EventPlayer eventPlayer : players){
+            if(eventPlayer.getPlayer() == player){
+                return eventPlayer;
+            }
+        }
+        return null;
+    }
 
 
 }
