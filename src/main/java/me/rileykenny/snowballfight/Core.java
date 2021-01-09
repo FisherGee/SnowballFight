@@ -6,18 +6,19 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Core extends JavaPlugin {
 
     private EventManager eventManager;
-    private static JavaPlugin instance;
+    private static Core instance;
 
     @Override
     public void onEnable() {
         eventManager = new EventManager();
+        instance = this;
     }
 
-    public EventManager getEventManager(){
+    public EventManager getEventManager() {
         return eventManager;
     }
 
-    public static JavaPlugin getInstance() {
+    public static Core getInstance() {
         return instance;
     }
 }
