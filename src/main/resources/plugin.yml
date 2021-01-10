@@ -1,0 +1,12 @@
+name: SnowballFight
+authors: [Intriguing, FisherGee]
+version: 1.0.0
+api-version: 1.16.4
+description: A snowball fight event plugin.
+prefix: SnowballFight
+commands:
+  event:
+    description: Event command
+    aliases:
+      - events
+    usage: /<command> [start]

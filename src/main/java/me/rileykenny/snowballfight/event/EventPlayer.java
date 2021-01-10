@@ -1,5 +1,6 @@
 package me.rileykenny.snowballfight.event;
 
+import me.rileykenny.snowballfight.util.EventUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
 

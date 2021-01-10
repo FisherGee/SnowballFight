@@ -1,7 +1,7 @@
 package me.rileykenny.snowballfight.event;
 
 import me.rileykenny.snowballfight.Core;
-import org.bukkit.Bukkit;
+import me.rileykenny.snowballfight.util.EventUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -34,14 +34,12 @@ public class Event {
 
     public static Event getInstance() {
         if (event == null) {
-
             World world = Core.getInstance().getServer().getWorld("world");
-
             event = new Event(new Arena(
                         new Location(world, 0.0, 0.0, 0.0),
                         new Location(world, -10.0, 0.0, -10.0),
                         new Location(world, 10.0, 0.0, 10.0)
-                ));
+            ));
         }
 
         return event;
@@ -58,40 +56,38 @@ public class Event {
             addEventPlayer(player);
             player.getPlayer().getInventory().clear();
         }
-
-
     }
 
-    public void addEventPlayer(EventPlayer eventPlayer){
+    public void addEventPlayer(EventPlayer eventPlayer) {
         players.add(eventPlayer);
     }
 
-    public void addEliminatedEventPlayer(EventPlayer eventPlayer){
+    public void addEliminatedEventPlayer(EventPlayer eventPlayer) {
         playersEliminated.add(eventPlayer);
     }
 
-    public State getState(){
-        return state;
-    }
-
-    public boolean isPlayerEvent(Player player){
-        for(EventPlayer eventPlayer : players){
-            if(eventPlayer.getPlayer() == player){
+    public boolean isPlayerEvent(Player player) {
+        for (EventPlayer eventPlayer : players) {
+            if (eventPlayer.getPlayer() == player) {
                 return true;
             }
         }
+
         return false;
     }
 
 
-    public EventPlayer getEventPlayer(Player player){
-        for(EventPlayer eventPlayer : players){
-            if(eventPlayer.getPlayer() == player){
+    public EventPlayer getEventPlayer(Player player) {
+        for (EventPlayer eventPlayer : players) {
+            if (eventPlayer.getPlayer() == player) {
                 return eventPlayer;
             }
         }
         return null;
     }
 
+    public State getState() {
+        return state;
+    }
 
 }

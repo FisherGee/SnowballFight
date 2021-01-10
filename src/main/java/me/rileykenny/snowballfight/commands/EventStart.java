@@ -22,8 +22,6 @@ public class EventStart implements CommandExecutor {
         if (args[0].equals("start")) {
             new EventQueue(60).start();
             Event.getInstance().start();
-
-
         }
 
         return true;
