@@ -30,3 +30,6 @@ __MACOSX
 out
 .idea
 *.iml
+
+# Maven
+target

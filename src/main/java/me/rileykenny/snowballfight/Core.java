@@ -1,5 +1,6 @@
 package me.rileykenny.snowballfight;
 
+import me.rileykenny.snowballfight.commands.EventStart;
 import me.rileykenny.snowballfight.util.EventUtil;
 import me.rileykenny.snowballfight.event.listeners.PlayerInventory;
 import me.rileykenny.snowballfight.event.listeners.SnowballHitListener;
@@ -23,6 +24,7 @@ public class Core extends JavaPlugin {
         instance = this;
 
         registerListeners();
+        registerCommands();
         loadConfig();
     }
 
@@ -30,6 +32,10 @@ public class Core extends JavaPlugin {
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new SnowballHitListener(), this);
         pluginManager.registerEvents(new PlayerInventory(), this);
+    }
+
+    public void registerCommands() {
+        this.getCommand("event").setExecutor(new EventStart());
     }
 
     private void loadConfig() {

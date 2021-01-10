@@ -18,6 +18,7 @@ public class EventStart implements CommandExecutor {
         Player player = sender instanceof Player ? (Player) sender : null;
         if (player == null) return false;
         if (!label.equals("event")) return false;
+        if (args.length == 0) return false;
 
         if (args[0].equals("start")) {
             new EventQueue(60).start();

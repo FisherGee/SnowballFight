@@ -1,7 +1,8 @@
 name: SnowballFight
 authors: [Intriguing, FisherGee]
 version: 1.0.0
-api-version: 1.16.4
+main: me.rileykenny.snowballfight.Core
+api-version: 1.16
 description: A snowball fight event plugin.
 prefix: SnowballFight
 commands:
