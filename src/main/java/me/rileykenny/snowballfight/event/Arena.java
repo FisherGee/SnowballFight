@@ -1,14 +1,15 @@
 package me.rileykenny.snowballfight.event;
 
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 
 public class Arena {
 
     private Location spawnLocation;
-    private Location cornerOne;
-    private Location cornerTwo;
+    private Block cornerOne;
+    private Block cornerTwo;
 
-    public Arena(Location spawnLocation, Location cornerOne, Location cornerTwo) {
+    public Arena(Location spawnLocation, Block cornerOne, Block cornerTwo) {
         this.spawnLocation = spawnLocation;
         this.cornerOne = cornerOne;
         this.cornerTwo = cornerTwo;
@@ -26,19 +27,19 @@ public class Arena {
         this.spawnLocation = spawnLocation;
     }
 
-    public Location getCornerOne() {
+    public Block getCornerOne() {
         return cornerOne;
     }
 
-    public void setCornerOne(Location cornerOne) {
+    public void setCornerOne(Block cornerOne) {
         this.cornerOne = cornerOne;
     }
 
-    public Location getCornerTwo() {
+    public Block getCornerTwo() {
         return cornerTwo;
     }
 
-    public void setCornerTwo(Location cornerTwo) {
+    public void setCornerTwo(Block cornerTwo) {
         this.cornerTwo = cornerTwo;
     }
 }
