@@ -1,13 +1,13 @@
 package me.rileykenny.snowballfight.event;
 
+import de.tr7zw.nbtapi.NBTItem;
 import me.rileykenny.snowballfight.Core;
 import me.rileykenny.snowballfight.util.EventUtil;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 
@@ -49,6 +49,9 @@ public class Event {
             player.getPlayer().sendMessage(ChatColor.GREEN + "Teleported to the event!");
             addEventPlayer(player);
             player.getPlayer().getInventory().clear();
+            NBTItem snowBall = new NBTItem(new ItemStack(Material.SNOW_BLOCK, 2304));
+            snowBall.setString("id", "snowballfight");
+            player.getPlayer().getInventory().addItem(snowBall.getItem());
         }
     }
 
