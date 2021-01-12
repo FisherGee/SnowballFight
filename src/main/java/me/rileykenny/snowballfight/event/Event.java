@@ -83,6 +83,12 @@ public class Event {
         return false;
     }
 
+    public boolean isSameTeam(EventPlayer eventPlayer, EventPlayer eventPlayer2){
+        if(eventPlayer.getTeam() == eventPlayer2.getTeam())
+            return true;
+        return false;
+    }
+
     public EventPlayer getEventPlayer(Player player) {
         for (EventPlayer eventPlayer : players) {
             if (eventPlayer.getPlayer() == player) {

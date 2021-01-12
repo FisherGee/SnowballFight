@@ -1,6 +1,7 @@
 package me.rileykenny.snowballfight.event.listeners;
 
 import me.rileykenny.snowballfight.event.Event;
+import me.rileykenny.snowballfight.event.EventPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -19,7 +20,15 @@ public class SnowballHitListener implements Listener{
 
             if(Event.getInstance().getState() == Event.State.SESSION){
                 if(Event.getInstance().isPlayerEvent(thrower) && Event.getInstance().isPlayerEvent(hit)){
-                    Event.getInstance().addEliminatedEventPlayer(Event.getInstance().getEventPlayer(hit));
+                    EventPlayer hitEventPlayer = Event.getInstance().getEventPlayer(hit);
+                    EventPlayer throwEventPlayer = Event.getInstance().getEventPlayer(thrower);
+
+                    if(Event.getInstance().isSameTeam(hitEventPlayer, throwEventPlayer)){
+                        thrower.playSound(thrower.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 10);
+                        return;
+                    }
+
+                    Event.getInstance().addEliminatedEventPlayer(hitEventPlayer);
 
                     thrower.playSound(thrower.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 10);
                     thrower.sendMessage(ChatColor.GREEN + "Killed player " + hit.getDisplayName());
