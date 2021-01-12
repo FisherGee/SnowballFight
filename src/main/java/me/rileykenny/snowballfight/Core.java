@@ -38,6 +38,7 @@ public class Core extends JavaPlugin {
     private void loadConfig() {
         this.saveDefaultConfig();
         this.getConfig().options().copyDefaults(true);
+        this.saveResource("messages.yml", false);
         this.messageConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "messages.yml"));
         this.messageConfig.options().copyDefaults(true);
     }
