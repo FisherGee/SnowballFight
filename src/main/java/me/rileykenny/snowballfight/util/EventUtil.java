@@ -1,6 +1,8 @@
 package me.rileykenny.snowballfight.util;
 
 import me.rileykenny.snowballfight.event.EventPlayer;
+import org.bukkit.entity.Player;
+
 import java.util.Collection;
 
 public class EventUtil {

@@ -83,6 +83,11 @@ public class Event {
         return false;
     }
 
+    public boolean isSameTeam(EventPlayer eventPlayer, EventPlayer eventPlayer2){
+        if(eventPlayer.getTeam() == eventPlayer2.getTeam())
+            return true;
+        return false;
+    }
 
     public EventPlayer getEventPlayer(Player player) {
         for (EventPlayer eventPlayer : players) {
@@ -101,35 +106,27 @@ public class Event {
         this.arena = arena;
     }
 
-    //flat surface only -- randomly spawn players in arena
+    //randomly spawn players in arena
     public void spawnPlayers(Arena arena){
-        int arenaLength, arenaWidth, arenaYFloor;
+        int arenaLength, arenaWidth;
 
-        arenaLength = arena.getCornerOne().getX() - arena.getCornerTwo().getX();
-        arenaWidth = arena.getCornerOne().getZ() - arena.getCornerTwo().getZ();
-        arenaYFloor = arena.getCornerOne().getY() + 1;
+        arenaLength = arena.getCornerTwo().getX();
+        arenaWidth = arena.getCornerTwo().getZ();
 
         List<Block> spawnPositions = new ArrayList<>();
         Random randomGen = new Random();
 
         int locationsNeeded = players.size();
 
-        for(int i = 1; i < arenaLength; i++){
-            for(int j = 1; j < arenaWidth && j < locationsNeeded; j++){
+        for(int i = 0; i != locationsNeeded ; i++){
+            int numWidth = randomGen.nextInt(arenaWidth - arena.getCornerOne().getX()) + arena.getCornerOne().getX();
+            int numLength = randomGen.nextInt(arenaLength - arena.getCornerOne().getZ()) + arena.getCornerOne().getZ();
 
-                int numWidth = randomGen.nextInt(arenaWidth - 1) + 1;
-                int numLength = randomGen.nextInt(arenaWidth - 1) + 1;
-                Block spawnBlock = Bukkit.getWorld("world").getBlockAt(numWidth, numLength,arenaYFloor);
+            Block spawnBlock = Bukkit.getWorld("world").getHighestBlockAt(numWidth, numLength);
 
-                for(int a = 0; a < spawnPositions.size(); a++){
-                    if(spawnPositions.get(a).equals(spawnBlock)){
-                        a--;
-                        numWidth = randomGen.nextInt(arenaWidth - 1) + 1;
-                        numLength = randomGen.nextInt(arenaWidth - 1) + 1;
-                        spawnBlock = Bukkit.getWorld("world").getBlockAt(numWidth, numLength,arenaYFloor);
-                        continue;
-                    }
-                }
+            if(spawnPositions.contains(spawnBlock)){
+                i--;
+                continue;
             }
         }
 
