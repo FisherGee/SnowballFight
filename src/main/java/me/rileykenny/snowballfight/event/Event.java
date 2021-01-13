@@ -23,7 +23,8 @@ public class Event {
     public enum State {
         QUEUE,
         IDLE,
-        SESSION
+        SESSION,
+        TERMINATED
     }
 
     // Singleton to ensure that there is only
@@ -49,6 +50,25 @@ public class Event {
             player.getPlayer().sendMessage(ChatColor.GREEN + "Teleported to the event!");
             addEventPlayer(player);
             player.getPlayer().getInventory().clear();
+        }
+    }
+
+    public void stop(){
+        state = State.TERMINATED;
+
+        for(EventPlayer player : players){
+            player.restoreInventory();
+            player.getPlayer().teleport(player.getOldLocation());
+            player.getPlayer().sendMessage(ChatColor.GOLD + "Event ended.");
+        }
+
+        for(EventPlayer player : playersEliminated){
+            player.restoreInventory();
+            player.getPlayer().teleport(player.getOldLocation());
+            player.getPlayer().sendMessage(ChatColor.GOLD + "Event ended.");
+
+            //clear the event data
+            event = null;
         }
     }
 
