@@ -7,7 +7,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Map;
 
 public class MessageUtil {
 
@@ -40,6 +39,15 @@ public class MessageUtil {
         return localeValue;
     }
 
+    public static String getLocale(String locale) {
+        Object value = getMessageSection(locale);
+        if (value instanceof String) {
+            return translate((String) value);
+        }
+
+        throw new InputMismatchException(locale + " should be of type string or string list!");
+    }
+
     public static String getLocale(String locale, String... args) {
         Object value = getMessageSection(locale);
         if (value instanceof String) {
@@ -52,6 +60,20 @@ public class MessageUtil {
         }
 
         throw new InputMismatchException(locale + " should be of type string or string list!");
+    }
+
+    public static List<String> getLocaleList(String locale) {
+        Object messageSection = getMessageSection(locale);
+        List<String> localeList = new ArrayList<>();
+        if (messageSection instanceof List<?>) {
+            for (Object value : (List<?>) messageSection) {
+                if (value instanceof String) {
+                    localeList.add((String) value);
+                }
+            }
+        }
+
+        return localeList;
     }
 
     public static List<String> getLocaleList(String locale, String... args) {
@@ -73,9 +95,24 @@ public class MessageUtil {
         return localeList;
     }
 
-    public static List<String> getLocaleList(String locale, Map<Integer, List<String>> args) {
-        return null;
-        // TODO
+    public static List<String> getLocaleList(String locale, List<String[]> args) {
+        Object messageSection = getMessageSection(locale);
+        List<String> localeList = new ArrayList<>();
+        if (messageSection instanceof List<?>) {
+            for (int i = 0; i < args.size(); i++) {
+                List<?> section = (List<?>) messageSection;
+                if (section.get(i) instanceof String) {
+                    String localeMessage = (String) section.get(i);
+                    for (int j = 0; j < args.get(i).length; i++) {
+                        localeMessage = localeMessage.replace("{" + j + "}", args.get(i)[j]);
+                    }
+
+                    localeList.add(localeMessage);
+                }
+            }
+        }
+
+        return localeList;
     }
 
 
