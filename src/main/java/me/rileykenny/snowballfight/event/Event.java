@@ -79,6 +79,10 @@ public class Event {
         return false;
     }
 
+    public Arena getArena(){
+        return arena;
+    }
+
     public void addEventPlayer(EventPlayer eventPlayer) {
         if(playerExists(eventPlayer, players)){
             return;
