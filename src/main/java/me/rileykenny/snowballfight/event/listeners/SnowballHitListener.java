@@ -4,7 +4,6 @@ import de.tr7zw.nbtapi.NBTItem;
 import me.rileykenny.snowballfight.event.Event;
 import me.rileykenny.snowballfight.event.EventPlayer;
 import me.rileykenny.snowballfight.util.MessageUtil;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -40,8 +39,10 @@ public class SnowballHitListener implements Listener{
                     Event.getInstance().addEliminatedEventPlayer(hitEventPlayer);
 
                     thrower.playSound(thrower.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 10);
-                    thrower.sendMessage(MessageUtil.getLocale("KILL_MESSAGE", hit.getDisplayName()));
-                    hit.sendMessage(ChatColor.RED + "You have been eliminated by " + thrower.getDisplayName());
+                    // Killed <player>
+                    thrower.sendMessage(MessageUtil.getLocale("THROWER_KILL_MESSAGE", hit.getDisplayName()));
+                    // You have been eliminated by <thrower>
+                    hit.sendMessage(MessageUtil.getLocale("HIT_KILL_MESSAGE", thrower.getDisplayName()));
                     hit.playSound(thrower.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 1, 10);
                 }
             }
