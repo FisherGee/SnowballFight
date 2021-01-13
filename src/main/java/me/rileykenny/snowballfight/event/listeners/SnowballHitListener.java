@@ -23,7 +23,7 @@ public class SnowballHitListener implements Listener{
 
             NBTItem snowBall = new NBTItem(new ItemStack(Material.SNOW_BLOCK));
             snowBall.setString("id", "snowballfight");
-            thrower.getPlayer().getInventory().addItem(snowBall.getItem());
+            thrower.getInventory().addItem(snowBall.getItem());
 
             if(Event.getInstance().getState() == Event.State.SESSION){
 
