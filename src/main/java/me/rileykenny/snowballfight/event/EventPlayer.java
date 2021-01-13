@@ -1,6 +1,7 @@
 package me.rileykenny.snowballfight.event;
 
 import me.rileykenny.snowballfight.util.EventUtil;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -10,6 +11,7 @@ public class EventPlayer {
     private Player player;
     private int points;
     private PlayerInventory oldInventory;
+    private Location oldLocation;
 
     public EventPlayer(Player player, int points) {
         this.player = player;
@@ -33,11 +35,19 @@ public class EventPlayer {
         return points;
     }
 
+    public void setOldLocation(Location location){
+        oldLocation = location;
+    }
+
+    public Location getOldLocation(){
+        return oldLocation;
+    }
+
     public void setPoints(int points) {
         this.points = points;
     }
 
-    public PlayerInventory getOldInventory() {
-        return oldInventory;
+    public void restoreInventory(){
+        player.getInventory().setStorageContents(oldInventory.getStorageContents());
     }
 }
