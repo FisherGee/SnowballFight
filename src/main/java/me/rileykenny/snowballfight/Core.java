@@ -1,7 +1,6 @@
 package me.rileykenny.snowballfight;
 
 import me.rileykenny.snowballfight.commands.EventStart;
-import me.rileykenny.snowballfight.util.EventUtil;
 import me.rileykenny.snowballfight.event.listeners.PlayerInventory;
 import me.rileykenny.snowballfight.event.listeners.SnowballHitListener;
 import org.bukkit.Bukkit;
@@ -14,13 +13,11 @@ import java.io.File;
 
 public class Core extends JavaPlugin {
 
-    private EventUtil eventUtil;
     private static Core instance;
     private FileConfiguration messageConfig;
 
     @Override
     public void onEnable() {
-        eventUtil = new EventUtil();
         instance = this;
 
         registerListeners();
@@ -41,12 +38,13 @@ public class Core extends JavaPlugin {
     private void loadConfig() {
         this.saveDefaultConfig();
         this.getConfig().options().copyDefaults(true);
+        this.saveResource("messages.yml", false);
         this.messageConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "messages.yml"));
         this.messageConfig.options().copyDefaults(true);
     }
 
-    public EventUtil getEventUtil() {
-        return eventUtil;
+    public FileConfiguration getMessageConfig() {
+        return messageConfig;
     }
 
     public static Core getInstance() {

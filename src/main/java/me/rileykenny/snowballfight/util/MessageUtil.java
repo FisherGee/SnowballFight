@@ -16,15 +16,17 @@ public class MessageUtil {
     }
 
     public static ArrayList<String> translate(List<String> unTranslated) {
-        List<String> translated = new ArrayList<>();
+        ArrayList<String> translated = new ArrayList<>();
         if (unTranslated != null) {
             for (String string : unTranslated) {
                 translated.add(ChatColor.translateAlternateColorCodes('&', string));
             }
         }
 
-        return (ArrayList<String>) unTranslated;
+        return translated;
     }
+
+
 
 
 }
