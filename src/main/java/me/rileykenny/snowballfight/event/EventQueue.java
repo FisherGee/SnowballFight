@@ -3,7 +3,7 @@ package me.rileykenny.snowballfight.event;
 import me.rileykenny.snowballfight.Core;
 import me.rileykenny.snowballfight.util.MessageUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class EventQueue {
 
@@ -14,15 +14,13 @@ public class EventQueue {
     }
 
     public void start() {
-        Bukkit.getScheduler().runTaskTimer(Core.getInstance(), () -> {
-            if (seconds != 0) {
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    player.sendMessage(MessageUtil.getLocale("EVENT_COUNTDOWN", Integer.toString(seconds)));
-                }
-
-                seconds--;
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                Bukkit.broadcastMessage(MessageUtil.getLocale("EVENT_COUNTDOWN", Integer.toString(seconds)));
+                if (--seconds == 0) this.cancel();
             }
-        }, 0L, 20L);
+        }.runTaskTimer(Core.getInstance(), 0, 20);
     }
 
 }
