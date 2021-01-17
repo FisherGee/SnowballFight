@@ -1,6 +1,7 @@
 package me.rileykenny.snowballfight.commands.admin;
 
 import me.rileykenny.snowballfight.event.Event;
+import me.rileykenny.snowballfight.util.MessageUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,7 +18,7 @@ public class AdminCmd implements CommandExecutor {
         }
 
         if(!(sender instanceof Player)){
-            sender.sendMessage(ChatColor.DARK_RED + "Only available in game.");
+            sender.sendMessage(MessageUtil.getLocale("COMMAND_ONLY_IN_GAME"));
             return true;
         }
 
@@ -32,12 +33,12 @@ public class AdminCmd implements CommandExecutor {
                     if(args[1].equalsIgnoreCase("setcorner")){
                         if(args[2].equalsIgnoreCase("1")){
                             Event.getInstance().getArena().setCornerOne(player.getLocation().getBlock());
-                            player.sendMessage(ChatColor.GREEN + "Set corner one!");
+                            player.sendMessage(MessageUtil.getLocale("COMMAND_SET_CORNER_ONE"));
                             return true;
                         }
                         else if(args[2].equalsIgnoreCase("2")){
                             Event.getInstance().getArena().setCornerTwo(player.getLocation().getBlock());
-                            player.sendMessage(ChatColor.GREEN + "Set corner two!");
+                            player.sendMessage(MessageUtil.getLocale("COMMAND_SET_CORNER_TWO"));
                             return true;
                         }
                     }

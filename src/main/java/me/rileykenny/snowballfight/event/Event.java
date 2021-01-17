@@ -1,15 +1,19 @@
 package me.rileykenny.snowballfight.event;
 
 import de.tr7zw.nbtapi.NBTItem;
-import me.rileykenny.snowballfight.Core;
 import me.rileykenny.snowballfight.util.EventUtil;
-import org.bukkit.*;
+import me.rileykenny.snowballfight.util.MessageUtil;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
 
 public class Event {
 
@@ -62,24 +66,21 @@ public class Event {
         for(EventPlayer player : players){
             player.restoreInventory();
             player.getPlayer().teleport(player.getOldLocation());
-            player.getPlayer().sendMessage(ChatColor.GOLD + "Event ended.");
+            player.getPlayer().sendMessage(MessageUtil.getLocale("EVENT_END_BROADCAST"));
         }
 
         for(EventPlayer player : playersEliminated){
             player.restoreInventory();
             player.getPlayer().teleport(player.getOldLocation());
-            player.getPlayer().sendMessage(ChatColor.GOLD + "Event ended.");
+            player.getPlayer().sendMessage(MessageUtil.getLocale("EVENT_END_BROADCAST"));
 
             //clear the event data
             event = null;
         }
     }
 
-    public boolean playerExists(EventPlayer player, Collection coll){
-        if(coll.contains(player))
-            return true;
-
-        return false;
+    public boolean playerExists(EventPlayer player, Collection<EventPlayer> coll){
+        return coll.contains(player);
     }
 
     public Arena getArena(){
@@ -111,9 +112,7 @@ public class Event {
     }
 
     public boolean isSameTeam(EventPlayer eventPlayer, EventPlayer eventPlayer2){
-        if(eventPlayer.getTeam() == eventPlayer2.getTeam())
-            return true;
-        return false;
+        return eventPlayer.getTeam() == eventPlayer2.getTeam();
     }
 
     public EventPlayer getEventPlayer(Player player) {

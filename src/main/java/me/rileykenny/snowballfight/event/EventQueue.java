@@ -1,8 +1,8 @@
 package me.rileykenny.snowballfight.event;
 
 import me.rileykenny.snowballfight.Core;
+import me.rileykenny.snowballfight.util.MessageUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class EventQueue {
@@ -17,7 +17,7 @@ public class EventQueue {
         Bukkit.getScheduler().runTaskTimer(Core.getInstance(), () -> {
             if (seconds != 0) {
                 for (Player player : Bukkit.getOnlinePlayers()) {
-                    player.sendMessage(ChatColor.YELLOW + Integer.toString(seconds) + " remaining!");
+                    player.sendMessage(MessageUtil.getLocale("EVENT_COUNTDOWN", Integer.toString(seconds)));
                 }
 
                 seconds--;
