@@ -37,6 +37,7 @@ public class Event {
     // Singleton to ensure that there is only
     // One event playing at a time.
     private Event(){
+        gameTime = 120;
     }
 
     public static Event getInstance() {
@@ -62,16 +63,34 @@ public class Event {
             player.getPlayer().getInventory().addItem(snowBall.getItem());
         }
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(Core.getInstance(), new Runnable(){
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(Core.getInstance(), () -> {
+            int teamA = 0;
+            int teamB = 0;
 
-            @Override
-            public void run() {
-                for(EventPlayer eventPlayer : players){
-
-                    event.stop();
+            for(EventPlayer eventPlayer : players){
+                if(eventPlayer.getTeam() == EventUtil.Team.A){
+                    teamA++;
+                }else{
+                    teamB++;
                 }
             }
+
+            if(teamA == 0 && teamB == 0){
+                event.globalEventBroadcast("&b&lTie");
+                event.stop();
+            }
+            else if(teamA == 0 && teamB > 0){
+                event.globalEventBroadcast("&b&lTeam A has won");
+                event.stop();
+            }
+            else if(teamA > 0 && teamB == 0){
+                event.globalEventBroadcast("&b&lTeam B has won");
+                event.stop();
+            }
         }, 20, gameTime * 20);
+
+        event.globalEventBroadcast("&c&lEvent has ended");
+        event.stop();
     }
 
     public void stop(){
