@@ -1,6 +1,7 @@
 package me.rileykenny.snowballfight.event;
 
 import de.tr7zw.nbtapi.NBTItem;
+import me.rileykenny.snowballfight.Core;
 import me.rileykenny.snowballfight.util.EventUtil;
 import me.rileykenny.snowballfight.util.MessageUtil;
 import org.bukkit.Bukkit;
@@ -9,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,6 +23,7 @@ public class Event {
     private List<EventPlayer> players;
     private List<EventPlayer> playersEliminated;
     private Arena arena;
+    private int gameTime;
     public State state;
 
     //state of the event
@@ -58,6 +61,17 @@ public class Event {
             snowBall.setString("id", "snowballfight");
             player.getPlayer().getInventory().addItem(snowBall.getItem());
         }
+
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(Core.getInstance(), new Runnable(){
+
+            @Override
+            public void run() {
+                for(EventPlayer eventPlayer : players){
+
+                    event.stop();
+                }
+            }
+        }, 20, gameTime * 20);
     }
 
     public void stop(){
@@ -130,6 +144,16 @@ public class Event {
 
     public void setArena(Arena arena){
         this.arena = arena;
+    }
+
+    public void globalEventBroadcast(String message){
+        for(EventPlayer player : players){
+            player.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+        }
+
+        for(EventPlayer player : playersEliminated){
+            player.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+        }
     }
 
     //randomly spawn players in arena
